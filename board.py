@@ -1,13 +1,15 @@
 # Creates a new board, keeps track of score and validates moves
 import random
 
+from players import Computer
+
 class Board:
     def __init__(self, human_symbol, computer_symbol):
         self.cells = {1:" ", 2:" ", 3:" ", 4:" ", 5:" ", 6:" ", 7:" ", 8:" ",9:" "}
         self.symbols = {"Human":human_symbol, "Computer":computer_symbol}
         self.win_combos = [{1,2,3}, {4,5,6}, {7,8,9},  # horizontal 
                            {1,4,7}, {2,5,8}, {3,6,9},  # vertical
-                           {1,5,9}, {3,5,7}]           # diagonal
+                           {1,5,9}, {3,5,7}]           # diagonal 
 
     @property
     def computer_positions(self):
@@ -18,31 +20,33 @@ class Board:
         return {cell[0] for cell in list(filter(lambda cell: cell[1] == self.symbols["Human"], self.cells.items()))}
 
     def show_board(self):
+        print("\n")
         for key, value in self.cells.items():
             row = ""
             row += f"[{value}]"
             if key % 3  == 0:
                 row += "\n"
             print(row, end="")
+        print("\n") 
 
     def end_game(self):
-        
-        return True
+        for i in self.win_combos:
+            if len(i.intersection(self.computer_positions)) == 3:
+                return "You lost!"
+            elif len(i.intersection(self.human_positions)) == 3:
+                return "You won!"
+        return False
 
     def make_move(self, cell, controller):
         if cell in self.cells.keys() and self.cells[cell] == " ":
             self.cells[cell] = self.symbols[controller]
-            return
-        print("You can't move to that cell!")
+            return True
+        return False
 
     def calculate_move(self):
         win_combos = self.win_combos
         cells = self.cells
-        #key_values = list(cells.items())
-
-        #computer_positions = {cell[0] for cell in list(filter(lambda cell: cell[1] == self.symbols["Computer"], key_values))}
-        #human_positions = {cell[0] for cell in list(filter(lambda cell: cell[1] == self.symbols["Human"], key_values))}
-
+        
         neutral_options_all = [row for row in win_combos if not row.intersection(self.human_positions)] 
         neutral_options = [row.difference(self.computer_positions) for row in neutral_options_all if len(row.difference(self.computer_positions))>1] # all attack openings for computer
 
