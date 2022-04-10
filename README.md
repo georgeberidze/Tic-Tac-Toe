@@ -4,7 +4,7 @@
 Simply run ```main.py``` and follow in-game directions
 
 ## Screenshot
-<img src="/screenshot.png" width="600">
+<img src="https://user-images.githubusercontent.com/72061626/162598001-02c8ff8a-058b-4afa-9b2f-2f82d42d8f66.png" width="600">
 
 ## Computer algorithm
 Computer is focused on winning in least possible moves. Its decision making follows 4 steps (decreasing priority):
@@ -26,6 +26,8 @@ My main goal was to practice the following Python concepts:
 - Lambdas
 - Random library
 - Set operations
+
+<img src="https://user-images.githubusercontent.com/72061626/162598075-08cbfbf0-0c87-4bab-9e9b-16b97fc942df.jpg" width="300">
 
 ## License
 [MIT](https://choosealicense.com/licenses/mit/)
